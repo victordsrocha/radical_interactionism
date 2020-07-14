@@ -7,13 +7,13 @@ class Enacter(object):
         self.memory = memory
         self.interface = Interface(self.memory)
 
-    def enact(self, intended_interaction):
+    def enact(self, intended_interaction, step_actions_list):
         if intended_interaction.is_primitive():
-            return self.interface.enact(intended_interaction)
+            return self.interface.enact(intended_interaction, step_actions_list)
         else:
             # Enact the pre-interaction
             enacted_pre_interaction = self.enact(
-                intended_interaction.pre_interaction)
+                intended_interaction.pre_interaction, step_actions_list)
             if enacted_pre_interaction != intended_interaction.pre_interaction:
                 # if the preInteraction failed then the enaction of the intendedInteraction
                 # is interrupted here
@@ -21,5 +21,5 @@ class Enacter(object):
             else:
                 # Enact the post-interaction
                 enacted_post_interaction = self.enact(
-                    intended_interaction.post_interaction)
+                    intended_interaction.post_interaction, step_actions_list)
                 return self.memory.add_or_get_composite_interaction(enacted_pre_interaction, enacted_post_interaction)

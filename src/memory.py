@@ -26,10 +26,12 @@ class Memory:
     def add_or_get_and_reinforce_composite_interaction(self, pre_interaction, post_interaction):
         composite_interaction = self.add_or_get_composite_interaction(pre_interaction, post_interaction)
         composite_interaction.weight += 1
+        '''
         if composite_interaction.weight == 1:
             print(f'learn {composite_interaction}')
         else:
             print(f'reinforce {composite_interaction}')
+        '''
         return composite_interaction
 
     # somente por questão de controle todas as criações de novas interações passam por aqui
